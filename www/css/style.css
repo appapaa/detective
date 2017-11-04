@@ -1,7 +1,8 @@
 body {
   background-color: gray;
   font-size: 20px;
-  background-color: #000; }
+  background-color: #000;
+  overflow: hidden; }
 
 .fix-all {
   position: fixed;
@@ -51,5 +52,29 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; }
-  .room-img.img-0 {
-    background-image: url(img/room-0-1.jpg); }
+
+.img-0 {
+  background-image: url(img/room-0-1.jpg); }
+
+.zoommer-img {
+  width: 16em;
+  height: 16em;
+  border: 0.2em solid gray;
+  z-index: 100;
+  background-color: #000;
+  position: absolute;
+  border-radius: 16em;
+  overflow: hidden;
+  pointer-events: none;
+  box-sizing: border-box; }
+  .zoommer-img > div {
+    background-position-x: 0;
+    background-position-y: 0;
+    background-repeat: no-repeat;
+    width: 16em;
+    height: 16em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -8em;
+    margin-left: -8em; }

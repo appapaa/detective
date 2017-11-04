@@ -51,6 +51,33 @@ Core.prototype.Module = function (url, j, fCB) {
         fCB(self.Modules[url])
     }
 };
+Core.prototype.getPos = function (e,j) {
+    var self = this;
+    var a = {
+        x: 0,
+        X: 0,
+        y: 0,
+        Y: 0
+    };
+
+    a.x = -j.offset().left;
+    a.y = -j.offset().top;
+
+    if (!!e.targetTouches) {
+        a.X = e.targetTouches[0].pageX;
+        a.Y = e.targetTouches[0].pageY;
+    }
+    else {
+        a.X = e.pageX;
+        a.Y = e.pageY;
+    }
+
+    a.x = Math.round(a.x + a.X);
+    a.y = Math.round(a.y + a.Y);
+    a.X = Math.round(a.X);
+    a.Y = Math.round(a.Y);
+    return a;
+};
 Core.prototype.initEvent = function () {
     var self = this;
     Object.defineProperty(self, 'target', {

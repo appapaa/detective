@@ -7,6 +7,29 @@ function Room(j) {
         end: 'zoomOut',
         afterEnd: 'hide'
     };
+    self.zoommer = {
+        x: null,
+        y: null,
+        X: null,
+        X0: null,
+        Y0: null,
+        Y: null,
+        j: null,
+        k: 2,
+        move: function () {
+            this.j.css({transform: 'translate(' + (this.X - this.X0) + 'px,' + (this.Y - this.Y0) + 'px)'});
+            this.moveImg();
+        },
+        moveImg: function(){
+            this.img.css({
+                backgroundPositionX: (-this.x*this.k + this.w/2) + 'px',
+                backgroundPositionY: (-this.y*this.k + this.w/2) + 'px'
+            });
+        }
+    };
+//    self.imgInfo ={
+//        0: {k:}
+//    }
     self.Data = {
         imgNum: null
     };
@@ -19,6 +42,7 @@ Room.prototype.init = function (param) {
     self.Data.imgNum = param[0];
     self.Content = $('<div></div>').addClass('room fix-all animated').addClass(self.animation.preStart).appendTo(self.j);
     self.initContent();
+    self.getZommer();
     return dfd.resolve();
 };
 
@@ -26,7 +50,7 @@ Room.prototype.show = function () {
     var dfd = $.Deferred();
     var self = this;
     self.Content.removeClass(self.animation.preStart).removeClass('min-index');
-    Core.animate(self.Content, self.animation.start,function(){
+    Core.animate(self.Content, self.animation.start, function () {
         dfd.resolve();
     });
     return dfd;
@@ -49,7 +73,42 @@ Room.prototype.hide_after = function () {
 Room.prototype.initContent = function () {
     var self = this;
     var j = self.Content;
-    var $img = $('<div class="room-img img-' + self.Data.imgNum + '"></div>');
-    $img.appendTo(j);
+    self.RoomImg = $('<div class="room-img img-' + self.Data.imgNum + '"></div>').appendTo(j);
+//    self.RoomImg = $('<img class="room-img "/>').appendTo(j);
+};
+Room.prototype.getZommer = function () {
+    var self = this;
+    self.RoomImg
+        .on('mousedown touchstart', function (e) {
+            self.zoomImg();
+            _.extend(self.zoommer, Core.getPos(e, $(this)));
+            self.zoommer.X0 = self.zoommer.X;
+            self.zoommer.Y0 = self.zoommer.Y;
+            self.zoommer.j.css({left: self.zoommer.X0-self.zoommer.w/2, top: self.zoommer.Y0-self.zoommer.w/2});
+            self.zoommer.moveImg();
+            Core.animate(self.zoommer.j, 'zoomIn animated');
+        })
+        .on('mousemove touchmove', function (e) {
+            if (!self.zoommer.j) {
+                return false;
+            }
+            _.extend(self.zoommer, Core.getPos(e, $(this)));
+            self.zoommer.move();
+            return false;
+        })
+        .on('mouseup touchend', function () {
+            self.zoommer.j.remove();
+            self.zoommer.j = null;
+        });
+};
+Room.prototype.zoomImg = function () {
+    var self = this;
+    var w = self.RoomImg.width();
+    !!self.zoommer.j && self.zoommer.j.remove();
+    self.zoommer.j = $('<div class="zoommer-img"><div class="img-' + self.Data.imgNum + '"></div></div>');
+    self.zoommer.img = self.zoommer.j.children() .css({'background-size': self.zoommer.k*w + 'px'});
+    $('body').append(self.zoommer.j);
+    self.zoommer.w = self.zoommer.img.width();
+    pprint(self.zoommer.w)
 };
 Modules.room = Room;

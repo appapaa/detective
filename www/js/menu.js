@@ -55,9 +55,10 @@ Menu.prototype.hide = function () {
     var self = this;
     var dfd = $.Deferred();
     Core.animate(self.Content, self.animation.end, function () {
-        self.Content.addClass(self.animation.afterEnd)
+        self.Content.addClass(self.animation.afterEnd);
+        dfd.resolve();
     });
-    return dfd.resolve();
+    return dfd;
 };
 
 Menu.prototype.initContent = function () {
