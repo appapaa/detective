@@ -1,0 +1,55 @@
+body {
+  background-color: gray;
+  font-size: 20px;
+  background-color: #000; }
+
+.fix-all {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+.hide {
+  display: none; }
+
+.min-index {
+  z-index: -1; }
+
+.menu {
+  background-color: #000; }
+
+.menu-btn {
+  width: 12em;
+  height: 12em;
+  display: block;
+  float: left;
+  position: absolute;
+  margin-top: -6em;
+  margin-left: -6em;
+  background-size: cover;
+  top: 25%;
+  left: 14%;
+  background-image: url(img/menu-btn-off.png); }
+  .menu-btn.active {
+    background-image: url(img/menu-btn-on.png); }
+  .menu-btn.bottom {
+    top: 75%; }
+  .menu-btn:nth-child(2), .menu-btn:nth-child(5) {
+    left: 38%; }
+  .menu-btn:nth-child(3), .menu-btn:nth-child(6) {
+    left: 62%; }
+  .menu-btn:nth-child(4), .menu-btn:nth-child(7) {
+    left: 86%; }
+
+.room-img {
+  position: absolute;
+  top: 1em;
+  right: 2em;
+  bottom: 1em;
+  left: 2em;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; }
+  .room-img.img-0 {
+    background-image: url(img/room-0-1.jpg); }
