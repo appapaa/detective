@@ -11,13 +11,28 @@ var Core = function () {
     _.extend(this, {
         _target: null,
         data: {},
-        Modules: []
+        Modules: [],
+        winInfo: {
+            fontSize: 0,
+            h: 0,
+            w: 0,
+            kFontSize: 70, // отношение
+            margin: 1, // отношение
+            kWH: 0
+        }
     });
     return this;
 };
 
 Core.prototype.getSize = function () {
-    $('body').css({fontSize: Math.round(Math.max($(window).height(), $(window).width()) / 70)});
+   var self = this;
+    var w = $(window).width();
+    var h = $(window).height();
+    self.winInfo.h = Math.min(w, h);
+    self.winInfo.w = Math.max(w, h);
+    self.winInfo.kWH = Math.round(w/h*100)/100;
+    self.winInfo.fontSize = Math.round(self.winInfo.w / self.winInfo.kFontSize);
+    $('body').css({fontSize: self.winInfo.fontSize});
 };
 Core.prototype.start = function () {
     var self = this;
