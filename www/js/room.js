@@ -15,7 +15,7 @@ function Room(j) {
         Y0: null,
         Y: null,
         j: null,
-        k: 2,
+        k: 3,
         move: function () {
             this.j.css({transform: 'translate(' + (this.X - this.X0) + 'px,' + (this.Y - this.Y0) + 'px)'});
             this.moveImg();
@@ -28,7 +28,8 @@ function Room(j) {
         }
     };
     self.imgInfo = {
-        0: {kWH: 1.5, w: 0, h: 0} //k - соотношение сторон
+        0: {kWH: 1.5, w: 0, h: 0}, //k - соотношение сторон
+        1: {kWH: 1.5, w: 0, h: 0} //k - соотношение сторон
     };
     self.Data = {
         imgNum: null
@@ -43,6 +44,7 @@ Room.prototype.init = function (param) {
     self.Content = $('<div></div>').addClass('room fix-all animated').addClass(self.animation.preStart).appendTo(self.j);
     self.getSizeImg();
     self.initContent();
+    self.initTextPanel();
     self.getZommer();
     return dfd.resolve();
 };
@@ -82,8 +84,20 @@ Room.prototype.initContent = function () {
             marginTop: -imgI.h / 2,
             marginLeft: -imgI.w / 2
         })
-        .appendTo(j);
+        .appendTo(j)
+        .on('click',function(){
+            self.TextPanel.toggleClass('active-small');
+        });
 //    self.RoomImg = $('<img class="room-img "/>').appendTo(j);
+};
+Room.prototype.initTextPanel = function () {
+    var self = this;
+    var j = self.Content;
+    self.TextPanel = $('<div class="room-text">' +
+        '<div class="room-text-panel-top"></div>' +
+        '<div class="room-text-content"></div>' +
+        '<div class="room-text-panel-bottom"></div>' +
+        '</div>').appendTo(j);
 };
 Room.prototype.getSizeImg = function () {
     var self = this;
@@ -136,6 +150,5 @@ Room.prototype.zoomImg = function () {
     self.zoommer.img = self.zoommer.j.children().css({'background-size': self.zoommer.k * w + 'px'});
     $('body').append(self.zoommer.j);
     self.zoommer.w = self.zoommer.img.width();
-    pprint(self.zoommer.w)
 };
 Modules.room = Room;

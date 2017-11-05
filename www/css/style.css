@@ -18,7 +18,8 @@ body {
   z-index: -1; }
 
 .menu {
-  background-color: #000; }
+  background-color: #000;
+  z-index: 100; }
 
 .menu-btn {
   width: 12em;
@@ -53,6 +54,49 @@ body {
 
 .img-0 {
   background-image: url(img/room-0-1.jpg); }
+
+.img-1 {
+  background-image: url(img/room-1-1.png); }
+
+.room-text {
+  transition: height .3s;
+  position: absolute;
+  width: 60em;
+  bottom: 0;
+  height: 1em;
+  left: 50%;
+  margin-left: -30em; }
+  .room-text.active-small {
+    height: 6em; }
+  .room-text.active {
+    height: 100%; }
+
+.room-text-panel-top {
+  position: absolute;
+  width: 30em;
+  top: 0;
+  height: .7em;
+  left: 50%;
+  margin-left: -15em;
+  background-color: #81817f;
+  z-index: 1; }
+
+.room-text-content {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0.5em;
+  bottom: 0.5em;
+  background-color: #727271; }
+
+.room-text-panel-bottom {
+  position: absolute;
+  width: 30em;
+  bottom: 0;
+  height: .7em;
+  left: 50%;
+  margin-left: -15em;
+  background-color: #81817f; }
 
 .zoommer-img {
   width: 16em;
